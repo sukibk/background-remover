@@ -34,7 +34,8 @@ export class MediaPipeSegmenter {
       // Create image segmenter with selfie model
       this.segmenter = await ImageSegmenter.createFromOptions(vision, {
         baseOptions: {
-          modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/image_segmenter/deeplab_v3/float32/1/deeplab_v3.tflite',
+          modelAssetPath:
+            'https://storage.googleapis.com/mediapipe-models/image_segmenter/deeplab_v3/float32/1/deeplab_v3.tflite',
           delegate: 'GPU', // Use GPU acceleration
         },
         outputCategoryMask: true,
@@ -50,43 +51,11 @@ export class MediaPipeSegmenter {
   }
 
   /**
-   * Segment image at a specific point (or full image segmentation)
-   */
-  async segmentImage(image: HTMLImageElement): Promise<SegmentationResult> {
-    if (!this.isInitialized || !this.segmenter) {
-      await this.initialize();
-    }
-
-    console.log('🎨 Segmenting image with MediaPipe...');
-
-    // Run segmentation
-    const segmentationResult = this.segmenter!.segment(image);
-
-    // Convert to ImageData
-    const mask = this.convertToImageData(
-      segmentationResult.categoryMask!,
-      image.width,
-      image.height
-    );
-
-    console.log('✅ Segmentation complete!');
-
-    return {
-      mask,
-      score: 0.95, // MediaPipe provides high-quality results
-    };
-  }
-
-  /**
    * Segment based on click point
    * Note: MediaPipe does semantic segmentation (categories), not point-based
    * This finds the category at the click point and segments all of it
    */
-  async segmentAtPoint(
-    image: HTMLImageElement,
-    x: number,
-    y: number
-  ): Promise<SegmentationResult> {
+  async segmentAtPoint(image: HTMLImageElement, x: number, y: number): Promise<SegmentationResult> {
     if (!this.isInitialized || !this.segmenter) {
       await this.initialize();
     }
@@ -103,12 +72,7 @@ export class MediaPipeSegmenter {
     console.log('📍 Clicked category:', clickedCategory);
 
     // Create mask for only that category
-    const mask = this.createCategoryMask(
-      categoryMask,
-      clickedCategory,
-      image.width,
-      image.height
-    );
+    const mask = this.createCategoryMask(categoryMask, clickedCategory, image.width, image.height);
 
     return {
       mask,
@@ -119,12 +83,7 @@ export class MediaPipeSegmenter {
   /**
    * Get the category value at a specific point
    */
-  private getCategoryAtPoint(
-    categoryMask: any,
-    x: number,
-    y: number,
-    width: number
-  ): number {
+  private getCategoryAtPoint(categoryMask: any, x: number, y: number, width: number): number {
     const index = Math.floor(y) * width + Math.floor(x);
     const maskData = categoryMask.getAsFloat32Array();
     return maskData[index];
@@ -147,7 +106,7 @@ export class MediaPipeSegmenter {
       const category = maskData[i];
       const alpha = category === targetCategory ? 255 : 0;
 
-      data[i * 4] = 255;     // R
+      data[i * 4] = 255; // R
       data[i * 4 + 1] = 255; // G
       data[i * 4 + 2] = 255; // B
       data[i * 4 + 3] = alpha; // Alpha
@@ -159,11 +118,7 @@ export class MediaPipeSegmenter {
   /**
    * Convert MediaPipe mask to ImageData
    */
-  private convertToImageData(
-    categoryMask: any,
-    width: number,
-    height: number
-  ): ImageData {
+  private convertToImageData(categoryMask: any, width: number, height: number): ImageData {
     const maskData = categoryMask.getAsFloat32Array();
     const imageData = new ImageData(width, height);
     const data = imageData.data;
@@ -190,7 +145,7 @@ export class MediaPipeSegmenter {
       const category = maskData[i];
       const alpha = category === maxCategory ? 255 : 0;
 
-      data[i * 4] = 255;     // R
+      data[i * 4] = 255; // R
       data[i * 4 + 1] = 255; // G
       data[i * 4 + 2] = 255; // B
       data[i * 4 + 3] = alpha; // Alpha
