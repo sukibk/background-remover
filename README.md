@@ -2,7 +2,7 @@
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![MediaPipe](https://img.shields.io/badge/Google-MediaPipe-green)
 
-**Professional AI-powered background removal using Google MediaPipe** — Upload an image, click on any object, and watch AI segment it in real-time. Replace backgrounds with beautiful gradients or make them transparent. All processing happens locally in your browser with zero backend costs.
+**AI-powered background removal using Google MediaPipe** — Upload an image, click on any object, and watch AI segment it in real-time. Replace backgrounds with beautiful gradients or make them transparent. All processing happens locally in your browser with zero backend costs.
 
 ## ✨ Features
 
@@ -10,7 +10,7 @@
 - 🚀 **100% Client-Side**: All processing happens locally - your images never leave your device
 - 🎨 **Background Options**: Transparent backgrounds or 8 beautiful gradient presets
 - ⚡ **GPU Accelerated**: Leverages WebGPU for fast inference
-- 📱 **Fully Responsive**: Works beautifully on desktop, tablet, and mobile
+- 📱 **Fully Responsive**: Works on desktop, tablet, and mobile
 - 🎭 **Beautiful UI**: Modern design with smooth animations
 - 🔒 **Privacy First**: No data sent to servers, everything runs in your browser
 
@@ -138,8 +138,6 @@ Modify `lib/mediapipe-segmentation.ts` to use different MediaPipe models or sett
 - ⚠️ Very small objects
 - ⚠️ Unusual items
 
-For other use cases, see [SAFE-ALTERNATIVES.md](SAFE-ALTERNATIVES.md)
-
 ### Slow Performance
 
 1. First load takes 5-10 seconds (normal - downloading model)
@@ -185,29 +183,6 @@ The app is fully static and can be deployed to:
 | Inference Time  | 1-2 seconds                        |
 | Browser Support | Chrome 94+, Edge 94+, Safari 16.4+ |
 | Mobile Support  | ✅ Yes                             |
-
-## 🎬 Demo Day Tips
-
-When presenting this project:
-
-1. **Show the working app** (2 min)
-
-   - Upload → Click → Segment → Background change → Download
-
-2. **Highlight key points** (3 min)
-
-   - 100% client-side (no backend costs)
-   - Google MediaPipe (trusted, official)
-   - Beautiful UI with Framer Motion
-   - TypeScript for type safety
-
-3. **Code walkthrough** (5 min)
-
-   - Show `lib/mediapipe-segmentation.ts`
-   - Explain `canvas-editor.tsx` interaction
-   - Demo `background-selector.tsx` gradients
-
-4. **Q&A** (5 min)
 
 ## 📚 Learn More
 
