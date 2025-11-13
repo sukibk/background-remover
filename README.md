@@ -34,7 +34,7 @@
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/sukibk/background-remover
 cd background-remover
 
 # Install dependencies
